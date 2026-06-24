@@ -1,0 +1,24 @@
+name: Rollback to Prod
+on:
+  workflow_dispatch:
+    inputs:
+      image_tag:
+        description: Image tag to deploy
+        required: true
+
+jobs:
+  rollback:
+    environment: prod
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@v4
+      - name: Deploy
+        run: |
+          kubectl set image deployment/color-app \
+            color-app=hanihammadeh/web-app:${{github.event.inputs.image_tag}} \
+            -n prod
+
+      - name: Wait for rollout
+        run: |
+          kubectl rollout status deployment/color-app \
+            -n prod

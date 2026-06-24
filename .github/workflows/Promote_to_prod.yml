@@ -1,4 +1,4 @@
-name: promote_to_staging
+name: promote_to_Prod
 on:
   workflow_dispatch:
     inputs:

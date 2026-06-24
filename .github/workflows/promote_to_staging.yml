@@ -14,7 +14,7 @@ jobs:
       - name: Deploy
         run: |
           kubectl set image deployment/color-app \
-            color-app=hanihammadeh/web-app:${{ github.event.inputs.image_tag  }} \
+            color-app=hanihammadeh/web-app:${{github.event.inputs.image_tag}} \
             -n staging
 
       - name: Wait for rollout

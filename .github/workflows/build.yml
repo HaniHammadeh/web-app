@@ -25,3 +25,23 @@ jobs:
       - run: pip install -r requirements.txt
       - run: docker build -t hanihammadeh/web-app:${{ github.sha }} .
       - run: docker push hanihammadeh/web-app:${{ github.sha }}
+  deploy_on_dev:
+    runs-on: self-hosted
+    steps:
+      - name: check out
+        uses: actions/checkout@v4
+      - name: Deploy image to dev
+        run: |
+          kubectl set image deployment/color-app \
+            color-app=hanihammadeh/web-app:${{ github.sha}}:${GITHUB_SHA} \
+            -n dev
+
+      - name: Wait for rollout
+        run: |
+          kubectl rollout status deployment/color-app \
+            -n dev \
+            --timeout=120s
+
+      - name: Show deployment
+        run: |
+          kubectl get pods -n dev

@@ -8,6 +8,7 @@ on:
 
 jobs:
   promote:
+    environment: staging
     runs-on: self-hosted
     steps:
       - uses: actions/checkout@v4

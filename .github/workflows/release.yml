@@ -24,4 +24,4 @@ jobs:
           context: .
           push: true
           tags: |
-           hanihammadeh/webapp-app:${{ github.ref_name }}
+           hanihammadeh/web-app:${{ github.ref_name }}

@@ -45,3 +45,20 @@ jobs:
       - name: Show deployment
         run: |
           kubectl get pods -n dev
+  
+  promote_to_staging:
+      runs-on: self-hosted
+      environment:
+        name: staging
+      steps:
+        - uses: actions/checkout@v4
+        - name: Deploy
+          run: |
+            kubectl set image deployment/color-app \
+              web-app= web-app=hanihammadeh/web-app:${{ github.sha}} \
+              -n staging
+
+        - name: Wait for rollout
+          run: |
+            kubectl rollout status deployment/color-app \
+              -n staging

@@ -11,7 +11,7 @@ def home():
     <html>
     <body style="background-color:blue;color:white;text-align:center;">
         <h1>BLUE VERSION</h1>
-        <h2>Release v1.1</h2>
+        <h2>Release v1.1.0</h2>
     </body>
     </html>
     """

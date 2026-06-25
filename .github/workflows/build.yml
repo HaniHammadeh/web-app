@@ -33,6 +33,7 @@ jobs:
                 --build-arg COMMIT=${{ github.sha }} \
                 --build-arg BUILD_DATE=$(date -u +"%Y-%m-%dT%H:%M:%SZ") \
                 -t hanihammadeh/web-app:${{ github.sha }} .
+                
       - run: docker push hanihammadeh/web-app:${{ github.sha }}
   deploy_on_dev:
     runs-on: self-hosted

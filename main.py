@@ -20,6 +20,7 @@ def home():
 def health():
     return {"status": "ok"}
 
+@app.get("/version")
 def version():
     return {
         "application": "color-app",

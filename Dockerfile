@@ -1,5 +1,13 @@
 FROM python:3.12-slim
 
+ARG VERSION=dev
+ARG COMMIT=unknown
+ARG BUILD_DATE=unknown
+
+ENV APP_VERSION=$VERSION
+ENV GIT_COMMIT=$COMMIT
+ENV BUILD_DATE=$BUILD_DATE
+
 WORKDIR /app
 
 COPY requirements.txt .

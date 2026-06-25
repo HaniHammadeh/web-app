@@ -27,7 +27,8 @@ jobs:
           python-version: "3.12"
 
       - run: pip install -r requirements.txt
-      - run: docker build \
+      - run: | 
+          docker build \
                 --build-arg VERSION=${{ github.sha }} \
                 --build-arg COMMIT=${{ github.sha }} \
                 --build-arg BUILD_DATE=$(date -u +"%Y-%m-%dT%H:%M:%SZ") \

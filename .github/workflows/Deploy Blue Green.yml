@@ -1,4 +1,4 @@
-name: promote_to_Prod
+name: Deploy Blue Green
 on:
   workflow_dispatch:
     inputs:

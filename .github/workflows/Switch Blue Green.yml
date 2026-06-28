@@ -1,0 +1,27 @@
+name: Switch Blue Green
+on:
+  workflow_dispatch:
+    inputs:
+      image_tag:
+        description: Image tag to deploy
+        required: true
+
+jobs:
+  promote:
+    environment: prod
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@v4
+      - name: Switch Between Blue and Green
+        run: |
+          ACTIVE_COLOR=$(kubectl get svc color-app  -n prod -o jsonpath='{.spec.selector.color}')
+          if [ "$ACTIVE_COLOR" = "blue" ]; then
+            TARGET_COLOR=green
+          else
+            TARGET_COLOR=blue
+          fi
+          echo "Active color: $ACTIVE_COLOR"
+
+          echo "Target color: $TARGET_COLOR"
+          
+          kubectl patch service color-app -n prod -p '{"spec":{"selector":{"color":"'"${TARGET_COLOR}"'"}}}'

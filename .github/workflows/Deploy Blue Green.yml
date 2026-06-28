@@ -30,4 +30,10 @@ jobs:
 
       - name: Wait for rollout
         run: |
+          ACTIVE_COLOR=$(kubectl get svc color-app  -n prod -o jsonpath='{.spec.selector.color}')
+          if [ "$ACTIVE_COLOR" = "blue" ]; then
+            TARGET_COLOR=green
+          else
+            TARGET_COLOR=blue
+          fi
           kubectl rollout status deployment/color-app-"${TARGET_COLOR}" -n prod

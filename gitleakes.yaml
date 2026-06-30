@@ -1,0 +1,22 @@
+name: gitleaks
+
+on:
+  pull_request:
+  push:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 4 * * *"
+
+jobs:
+  scan:
+    runs-on:
+      - self-hosted
+
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Scan repository
+        run: |
+          gitleaks git . --verbose --redact

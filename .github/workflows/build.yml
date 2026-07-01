@@ -25,6 +25,7 @@ jobs:
           gitleaks -v detect
   build:
     runs-on: ubuntu-latest
+    needs: scan
 
     steps:
       -
@@ -52,6 +53,7 @@ jobs:
 
       - run: docker push hanihammadeh/web-app:${{ github.sha }}
   deploy_on_dev:
+    needs: build
     runs-on: self-hosted
     steps:
       - name: check out

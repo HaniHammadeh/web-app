@@ -71,7 +71,7 @@ jobs:
       - name: Deploy image to dev
         run: |
           kubectl set image deployment/color-app \
-            web-app=hanihammadeh/web-app:${{ github.sha}} \
+            color-app=hanihammadeh/web-app:${{ github.sha}} \
             -n dev
 
       - name: Wait for rollout
